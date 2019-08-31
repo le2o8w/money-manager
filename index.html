@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="https://fonts.googleapis.com/css?family=Special+Elite&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Walter+Turncoat&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Test</title>
+  </head>
+  <body>
+    <header></header>
+    <main>
+      <div class="tabset">
+        <input type="radio" name="tabset" id="tab1" aria-controls="mensuel" checked />
+        <label for="tab1">Mensuel</label>
+        <input type="radio" name="tabset" id="tab2" aria-controls="courses" />
+        <label for="tab2">Courses</label>
+        <input type="radio" name="tabset" id="tab3" aria-controls="sorties" />
+        <label for="tab3">Sorties</label>
+        <input type="radio" name="tabset" id="tab4" aria-controls="voyages" />
+        <label for="tab4">Voyages</label>
+        <input type="radio" name="tabset" id="tab5" aria-controls="shopping" />
+        <label for="tab5">Shopping</label>
+
+        <div class="tab-panels">
+          <!-- ___________________ MENSUEL ___________________ -->
+          <section id="mensuel" class="tab-panel">
+            <article>
+              <h3>Factures : <em id="totalMensuel"></em> €</h3>
+              <ul id="calculMensuel" class="list">
+                <li>
+                  <input type="text" class="key" />
+                  <input type="text" class="value" />
+                </li>
+              </ul>
+              <div class="test"></div>
+            </article>
+            <article>
+              <h3>Crédit : <em id="totalRevenus"></em> €</h3>
+              <ul id="calculRevenus" class="list">
+                <li>
+                  <input type="text" class="key" />
+                  <input type="text" class="value" />
+                </li>
+              </ul>
+            </article>
+          </section>
+          <!-- ___________________ COURSES ___________________ -->
+          <section id="courses" class="tab-panel">
+            <article>
+              <h3>Courses : <em id="totalCourses"></em> €</h3>
+              <ul id="calculCourses" class="list">
+                <li>
+                  <input type="text" class="key" />
+                  <input type="text" class="value" />
+                </li>
+              </ul>
+            </article>
+            <article class="notes">
+              <div class="postit">
+                <span>liste :</span>
+                <textarea id="listeCourses" oninput="setTextValue(event)"></textarea>
+              </div>
+            </article>
+          </section>
+          <!-- ___________________ SORTIES ___________________ -->
+          <section id="sorties" class="tab-panel">
+            <article>
+              <h3>Sorties : <em id="totalSorties"></em> €</h3>
+              <ul id="calculSorties" class="list">
+                <li>
+                  <input type="text" class="key" />
+                  <input type="text" class="value" />
+                </li>
+              </ul>
+            </article>
+          </section>
+          <!-- ___________________ VOYAGES ___________________ -->
+          <section id="voyages" class="tab-panel">
+            <article>
+              <h3>Sicile : <em id="totalVoyageSicile"></em> €</h3>
+              <ul id="calculVoyageSicile" class="list">
+                <li>
+                  <input type="text" class="key" />
+                  <input type="text" class="value" />
+                </li>
+              </ul>
+            </article>
+            <article>
+              <h3>remboursements : <em id="totalRemboursementSicile"></em> €</h3>
+              <div class="info">Nombre de parts : <input type="text" id="nombrePartVoyageSicile" oninput="setValue(event)"></div>
+              <div class="info">Prix par personne : <em id="partVoyageSicile"></em> €</div>
+              <ul id="calculRemboursementSicile" class="list">
+                <li>
+                  <input type="text" class="key" />
+                  <input type="text" class="value" />
+                </li>
+              </ul>
+            </article>
+            <article>
+              <h3>Mallorca : <em id="totalVoyageMallorca"></em> €</h3>
+              <ul id="calculVoyageMallorca" class="list">
+                <li>
+                  <input type="text" class="key" />
+                  <input type="text" class="value" />
+                </li>
+              </ul>
+            </article>
+            <article>
+              <h3>remboursements : <em id="totalRemboursementMallorca"></em> €</h3>
+              <div class="info">Nombre de parts : <input type="text" id="nombrePartVoyageMallorca" oninput="setValue(event)"></div>
+              <div class="info">Prix par personne : <em id="partVoyageMallorca"></em> €</div>              
+              <ul id="calculRemboursementMallorca" class="list">
+                <li>
+                  <input type="text" class="key" />
+                  <input type="text" class="value" />
+                </li>
+              </ul>
+            </article>
+            </article>
+          </section>
+          <!-- ___________________ SHOPPING ___________________ -->
+          <section id="shopping" class="tab-panel">
+            <article>
+              <h3>Shopping : <em id="totalShopping"></em> €</h3>
+              <ul id="calculShopping" class="list">
+                <li>
+                  <input type="text" class="key" />
+                  <input type="text" class="value" />
+                </li>
+              </ul>
+            </article>
+          </section>
+        </div>
+      </div>
+      <h3>total : <em id="total"></em> €</h3>
+    </main>
+  </body>
+  <script src="main.js"></script>
+</html>
