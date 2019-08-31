@@ -35,11 +35,51 @@ function parseValue(value) {
   return value;
 }
 
+function setNumberValue(event) {
+  let id = event.srcElement.id;
+  let value = parseValue(event.currentTarget.value);
+  localStorage.setItem(id, value);
+}
+
+function setTextValue(event) {
+  let id = event.srcElement.id;
+  let value = event.currentTarget.value;
+  localStorage.setItem(id, value);
+}
+
+function deleteItem(event) {
+  event.target.nextElementSibling.children[0].value = "";
+  total();
+}
+
+function createItem(key, value) {
+  let li = ` <div class="flex">
+                      <button onclick="deleteItem(event)"></button>
+                      <li>
+                        <input type="text" class="key" value="${key}" onclick="show(event)" onblur="hide(event)" /> 
+                        <input type="text" class="value" value="${value}" />
+                      </li>
+                    </div>`;
+  return li;
+}
+
+//* ____________ UI ____________ *//
+
+function show(event) {
+  event.target.parentElement.previousElementSibling.classList.add("is-visible");
+}
+function hide(event) {
+  let element = event.target.parentElement.previousElementSibling;
+  setTimeout(function() {
+    element.classList.remove("is-visible");
+  }, 1000);
+}
+
 //* _________  CALCULS  _________ *//
 
 function totalList(list) {
-  let totalSelector = list.replace("calcul", "total");
   let items = document.getElementById(list).getElementsByTagName("li");
+  let totalSelector = list.replace("calcul", "total");
   let title = document.getElementById(totalSelector);
   let total = 0;
   let liste = {};
@@ -69,9 +109,6 @@ function partVoyages(list) {
   document.getElementById(partSelector).innerHTML = part;
 }
 function total() {
-  let mallorca = partVoyages("calculVoyageMallorca");
-  let sicilia = partVoyages("calculVoyageSicile");
-
   let regex = /revenus|remboursement/gi;
   let debit = totaux
     .filter(tab => !tab.match(regex))
@@ -89,23 +126,7 @@ function total() {
   total.innerHTML = result;
 }
 
-function deleteItem(event) {
-  event.target.nextElementSibling.children[0].value = "";
-  total();
-}
 //* _________ LOCALSTORAGE _________ *//
-
-function setValue(event) {
-  let id = event.srcElement.id;
-  let value = parseValue(event.currentTarget.value);
-  localStorage.setItem(id, value);
-}
-
-function setTextValue(event) {
-  let id = event.srcElement.id;
-  let value = event.currentTarget.value;
-  localStorage.setItem(id, value);
-}
 
 function getListValues() {
   var archive = {},
@@ -117,6 +138,7 @@ function getListValues() {
   }
   return archive;
 }
+
 function appendValues() {
   let archive = getListValues();
 
@@ -137,6 +159,7 @@ function appendValues() {
     initListFromStorage(tab);
   });
 }
+
 function initListFromStorage(id) {
   let printList = "";
   let ul = document.getElementById(id);
@@ -146,41 +169,16 @@ function initListFromStorage(id) {
       if (list.hasOwnProperty(key)) {
         let value = list[key];
         key = key.replace(/-/gi, " ");
-        let li = `<div class="flex">
-                    <button onclick="deleteItem(event)"></button>
-                    <li>
-                      <input type="text" class="key" value="${key}" onclick="show(event)" onblur="hide(event)" /> 
-                      <input type="text" class="value" value="${value}" />
-                    </li>
-                  </div>`;
+
+        let li = createItem(key, value);
         printList += li;
       }
     }
     ul.innerHTML = printList;
   }
 
-  appendLi(id);
-}
-function appendLi(id) {
-  let ul = document.getElementById(id);
-  ul.innerHTML += ` <div class="flex">
-                      <button onclick="deleteItem(event)"></button>
-                      <li>
-                        <input type="text" class="key" /> 
-                        <input type="text" class="value" />
-                      </li>
-                    </div>`;
+  let li = createItem("", "");
+  ul.innerHTML += li;
 }
 
 appendValues();
-
-//* ____________ UI ____________ *//
-function show(event) {
-  event.target.parentElement.previousElementSibling.classList.add("is-visible");
-}
-function hide(event) {
-  let element = event.target.parentElement.previousElementSibling;
-  setTimeout(function() {
-    element.classList.remove("is-visible");
-  }, 1000);
-}
